@@ -41,7 +41,7 @@ class DrawingUtil {
         for (var j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
-            context.translate(w / 2, -h / 2 + (h / 2 - size) * sf2)
+            context.translate(-w / 2, -h / 2 + (h - size) * sf2)
             context.fillRect(0, 0, size * sf1 + (w / 2 - size) * sf3, size)
             context.restore()
         }
@@ -81,7 +81,7 @@ class Stage {
         }
     }
 
-    static handleTap() {
+    static init() {
         const stage : Stage = new Stage()
         stage.initCanvas()
         stage.render()
