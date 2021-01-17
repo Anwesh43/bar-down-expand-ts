@@ -193,3 +193,25 @@ class BarDownExpand {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bde : BarDownExpand = new BarDownExpand()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bde.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bde.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bde.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
