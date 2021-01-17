@@ -27,3 +27,29 @@ class ScaleUtil {
         return Math.sin(scale * Math.PI)
     }
 }
+
+class DrawingUtil {
+
+    static drawBarDownExpand(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor
+        const sf : number = ScaleUtil.sinify(scale)
+        const sf1 : number = ScaleUtil.divideScale(sf, 0, parts)
+        const sf2 : number = ScaleUtil.divideScale(sf, 1, parts)
+        const sf3 : number = ScaleUtil.divideScale(sf, 2, parts) 
+        context.save()
+        context.translate(w / 2, h / 2)
+        for (var j = 0; j < 2; j++) {
+            context.save()
+            context.scale(1 - 2 * j, 1)
+            context.translate(w / 2, -h / 2 + (h / 2 - size) * sf2)
+            context.fillRect(0, 0, size * sf1 + (w / 2 - size) * sf3, size)
+            context.restore()
+        }
+        context.restore()
+    }
+
+    static drawBDENode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawBarDownExpand(context, scale)
+    }
+}
